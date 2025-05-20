@@ -1,2 +1,2 @@
 # gcst-editor
-WIP Editor for Groove Coaster for Steam files
+WIP Editor for Groove Coaster (Steam) files
