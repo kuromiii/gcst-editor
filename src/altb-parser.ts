@@ -40,7 +40,8 @@ export function parse(input: ArrayBuffer): ALTB {
   if (tableNameOffset === 0x14) {
     textSectionLength = abr.readUInt32()
     textSectionOffset = abr.readUInt32()
-  } else if (tableNameOffset === 0x1C) { // wtf
+  }
+  else if (tableNameOffset === 0x1C) { // wtf
     textSectionOffset = abr.readUInt32()
     textSectionLength = abr.readUInt32()
   }
@@ -116,8 +117,8 @@ export function parse(input: ArrayBuffer): ALTB {
     }
   }
 
+  // Sort columns by offset
   columns = columns.sort((col1, col2) => col1.offset - col2.offset)
-  console.dir(columns)
 
   // -------------- Parse ALRD Values
 
@@ -137,7 +138,7 @@ export function parse(input: ArrayBuffer): ALTB {
       const value = abr.readBytes(valueLength)
 
       // TODO: this is complete dogshit
-      if (columns[i].unknown == 32 || columns[i].unknown == 98 || columns[i].unknown == 7524) {
+      if (columns[i].unknown === 32 || columns[i].unknown === 98 || columns[i].unknown === 7524) {
         // String
         const currentPosition = abr.getOffset()
 
@@ -147,25 +148,24 @@ export function parse(input: ArrayBuffer): ALTB {
 
         entry.set(columns[i].name, strValue)
       }
-      else if (columns[i].unknown == 2049 || columns[i].unknown == 261 || columns[i].unknown == 1633 || columns[i].unknown == 2056) {
+      else if (columns[i].unknown === 2049 || columns[i].unknown === 261 || columns[i].unknown === 1633 || columns[i].unknown === 2056) {
         // Number (idk which byte length, seems to work with many)
 
-        if (valueLength == 4)
+        if (valueLength === 4)
           entry.set(columns[i].name, `${toUInt32(value)}`)
         else
           entry.set(columns[i].name, `${value}`) // todo
       }
-      else if (columns[i].unknown == 3076) {
+      else if (columns[i].unknown === 3076) {
         // Float
 
-        if (valueLength == 4)
+        if (valueLength === 4)
           entry.set(columns[i].name, `${toFloat32(value)}`)
         else
           entry.set(columns[i].name, `${value}`) // todo
       }
       else {
-        console.log('Column', columns[i].name)
-        console.log('Missing handle type', columns[i].unknown)
+        console.warn('Missing handle type %i for column %s', columns[i].unknown, columns[i].name)
       }
     }
 
@@ -177,7 +177,7 @@ export function parse(input: ArrayBuffer): ALTB {
     tableNameOffset,
     entryCount,
     alrdHeaderOffset,
-    alrdEntriesOffset: alrdHeaderOffset,
+    alrdEntriesOffset,
     alrdEntryLength,
     unknown2: unk2,
     textSectionLength,

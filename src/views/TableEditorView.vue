@@ -5,26 +5,26 @@ import { parse } from '../altb-parser'
 
 const altb = ref<ALTB>()
 
-const search = ref<string>("")
+const search = ref<string>('')
 
 const filteredAltb = computed<Map<string, string>[]>(() => {
-  const query = search.value.toLowerCase();
+  const query = search.value.toLowerCase()
 
   return altb.value?.alrd.entries.filter((entry) => {
     // If search is empty, include all entries
-    if (!query) 
-      return true;
+    if (!query)
+      return true
 
     // Check if any value in the map contains the search string
     for (const val of entry.values()) {
       if (val.toLowerCase().includes(query)) {
-        return true;
+        return true
       }
     }
 
-    return false;
-  }) ?? [];
-});
+    return false
+  }) ?? []
+})
 
 function onDrop(e: DragEvent) {
   e.stopPropagation()
@@ -61,13 +61,15 @@ function onDrop(e: DragEvent) {
 
 <template>
   <div class="container vh-navbar" @drop="onDrop($event)" @dragover.prevent @dragenter.prevent>
-    <h1 class="mt-3">Table Editor</h1>
+    <h1 class="mt-3">
+      Table Editor
+    </h1>
 
     <p v-if="altb">
       Loaded table <strong>{{ altb.tableName }}</strong> - {{ altb.entryCount }} entries
     </p>
 
-    <div class="col-lg-4" v-if="altb">
+    <div v-if="altb" class="col-lg-4">
       <div class="input-group">
         <input v-model="search" class="form-control" placeholder="Search" type="text" name="search">
       </div>
