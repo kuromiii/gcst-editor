@@ -40,11 +40,6 @@ function onDrop(e: DragEvent) {
 
   const file = files[0]
 
-  if (!file.name.endsWith('.atb')) {
-    console.error('Input file does not have the atb extension.')
-    return
-  }
-
   const reader = new FileReader()
   reader.onload = (e) => {
     if (e?.target?.result == null) {

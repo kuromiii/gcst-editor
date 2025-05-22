@@ -39,11 +39,6 @@ function onDrop(e: DragEvent) {
 
   const file = files[0]
 
-  if (!file.name.endsWith('.aar')) {
-    console.error('Input file does not have the aar extension.')
-    return
-  }
-
   const reader = new FileReader()
   reader.onload = (e) => {
     if (e?.target?.result == null) {
