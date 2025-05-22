@@ -102,6 +102,7 @@ function onDrop(e: DragEvent) {
             <th scope="col">
               Unknown
             </th>
+            <th scope="col" />
           </tr>
         </thead>
         <tbody>
