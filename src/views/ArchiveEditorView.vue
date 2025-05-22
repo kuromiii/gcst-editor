@@ -17,7 +17,7 @@ const filteredAlarFiles = computed<ALARFile[]>(() => {
       return true
 
     // Check if any value in the map contains the search string
-    if (file.name.toLowerCase().includes(query)) {
+    if (file.name.toLowerCase().includes(query) || file.id.toString().includes(query)) {
       return true
     }
 
