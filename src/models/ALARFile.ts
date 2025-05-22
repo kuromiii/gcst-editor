@@ -23,6 +23,11 @@ interface ALARFile {
    * The name of the file
    */
   name: string
+
+  /**
+   * Binary contents of the file
+   */
+  content: Uint8Array
 }
 
 export type { ALARFile }

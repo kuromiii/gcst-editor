@@ -25,6 +25,20 @@ const filteredAlarFiles = computed<ALARFile[]>(() => {
   }) ?? []
 })
 
+function downloadFile(file: ALARFile): void {
+  const blob = new Blob([file.content], { type: 'application/octet-stream' })
+  const url = URL.createObjectURL(blob)
+
+  const a = document.createElement('a')
+  a.href = url
+  a.download = file.name
+  document.body.appendChild(a)
+  a.click()
+
+  document.body.removeChild(a)
+  URL.revokeObjectURL(url)
+}
+
 function onDrop(e: DragEvent) {
   e.stopPropagation()
   e.preventDefault()
@@ -106,6 +120,11 @@ function onDrop(e: DragEvent) {
             </td>
             <td>
               {{ alarFile.unknown }}
+            </td>
+            <td>
+              <button type="button" class="btn btn-primary" @click="downloadFile(alarFile)">
+                Download
+              </button>
             </td>
           </tr>
         </tbody>

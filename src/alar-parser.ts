@@ -29,8 +29,11 @@ export function parse(input: ArrayBuffer): ALAR {
     const currentPosition = abr.getOffset()
 
     abr.setOffset(fileOffset - 0x22)
-    const fileName = abr.readCString()
-    abr.setOffset(currentPosition)
+    const fileName = abr.readCString() // Max name length is 0x20
+    // TODO: there are two bytes after the name which are not size or checksum related
+
+    abr.setOffset(fileOffset)
+    const fileContents = abr.readBytes(fileSize)
 
     files.push({
       id: fileId,
@@ -38,7 +41,10 @@ export function parse(input: ArrayBuffer): ALAR {
       size: fileSize,
       unknown: fileUnknown,
       name: fileName,
+      content: fileContents,
     })
+
+    abr.setOffset(currentPosition)
   }
 
   return {
