@@ -29,6 +29,11 @@
               Table Editor
             </RouterLink>
           </li>
+          <li class="nav-item">
+            <RouterLink active-class="active" class="nav-link" to="/archiveeditor">
+              Archive Editor
+            </RouterLink>
+          </li>
         </ul>
       </div>
     </div>
