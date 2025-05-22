@@ -61,7 +61,7 @@ function onDrop(e: DragEvent) {
 <template>
   <div class="container vh-navbar" @drop="onDrop($event)" @dragover.prevent @dragenter.prevent>
     <h1 class="mt-3">
-      Table Editor
+      Archive Editor
     </h1>
 
     <p v-if="alar">
